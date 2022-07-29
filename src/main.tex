@@ -1,0 +1,62 @@
+%! Author = Kevin
+%! Date = 29.07.2022
+
+% Preamble
+\documentclass{acm_proc_article-sp}
+
+% Packages
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage[nodayofweek]{datetime}
+% Commands
+\newdate{dateAtomShell}{15}{07}{2013}
+\newdate{dateRenameElectron}{23}{04}{2015}
+\date{\displaydate{date}}
+\pagenumbering{arabic}
+\newcommand{\secref}[1]{\autoref{#1}.~\nameref{#1}}
+% Document
+\begin{document}
+
+    \title{{\ttlit Electron} and {\ttlit Tauri}: Comparison of web-frameworks for building cross-platform desktop applications}
+    \numberofauthors{1}
+    \author{
+        \alignauthor
+        Kevin L\"uttge \\
+        %\titlenote{Dr.~Trovato insisted his name be first.}\\
+        \affaddr{University of Kassel}\\
+        %\affaddr{Software Engineering Research Group}\\
+        %\affaddr{Department of Computer Science and Electrical Engineering}\\
+        %\affaddr{Wilhelmsh\"oher Allee 73, 34121 Kassel, Germany}\\
+        %\email{trovato@corporation.com}
+    }
+
+    \maketitle
+
+    \begin{abstract}
+        Web-frameworks like Electron provide the possibility to easily develop cross-platform desktop applications by using common web-technologies
+        such as HTML, CSS and Javascript.
+        The increasing popularity of those frameworks is shown by various day-to-day applications namely WhatsApp, Discord or Visual Studio Code
+        that are built with Electron.
+        Two years ago Tauri came up, claiming to be faster, smaller and more focused on security than other alternative frameworks.
+        This paper will discuss the differences and similarities between Electron and Tauri, in terms like architecture, performance or security.
+        Therefore a small screen cast application is implemented for each framework to analyze and compare the development process.
+    \end{abstract}
+
+    \input{sections/introduction.tex}
+    \input{sections/electron.tex}
+    \input{sections/tauri.tex}
+    \input{sections/implementation.tex}
+    \input{sections/summary.tex}
+    \input{sections/conclusion.tex}
+
+    \newpage
+
+    \bibliography{main}
+    \bibliographystyle{plain}
+
+    \balancecolumns
+
+\end{document}
