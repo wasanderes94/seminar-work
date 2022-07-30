@@ -11,12 +11,15 @@
 \usepackage{hyperref}
 \usepackage{todonotes}
 \usepackage[nodayofweek]{datetime}
+\usepackage{acronym}
+
 % Commands
 \newdate{dateAtomShell}{15}{07}{2013}
 \newdate{dateRenameElectron}{23}{04}{2015}
 \date{\displaydate{date}}
 \pagenumbering{arabic}
 \newcommand{\secref}[1]{\autoref{#1}.~\nameref{#1}}
+
 % Document
 \begin{document}
 
@@ -37,22 +40,22 @@
 
     \begin{abstract}
         Web-frameworks like Electron provide the possibility to easily develop cross-platform desktop applications by using common web-technologies
-        such as HTML, CSS and Javascript.
+        such as \ac{HTML}, \ac{CSS} and JavaScript.
         The increasing popularity of those frameworks is shown by various day-to-day applications namely WhatsApp, Discord or Visual Studio Code
         that are built with Electron.
-        Two years ago Tauri came up, claiming to be faster, smaller and more focused on security than other alternative frameworks.
+        Two years ago Tauri came up, whose developers claimed it to be faster, smaller and more focused on security than other alternative frameworks.
         This paper will discuss the differences and similarities between Electron and Tauri, in terms like architecture, performance or security.
-        Therefore a small screen cast application is implemented for each framework to analyze and compare the development process.
+        Therefore a counter application is implemented for each framework to analyze and compare the development process.
     \end{abstract}
-    Doing stuff here
     \input{sections/introduction.tex}
     \input{sections/electron.tex}
     \input{sections/tauri.tex}
     \input{sections/implementation.tex}
     \input{sections/summary.tex}
     \input{sections/conclusion.tex}
-
+    \input{sections/abbreviations.tex}
     \newpage
+
 
     \bibliography{main}
     \bibliographystyle{plain}
