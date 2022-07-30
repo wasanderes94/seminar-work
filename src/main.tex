@@ -6,12 +6,14 @@
 
 % Packages
 \usepackage{graphicx}
+\graphicspath{images/}
 \usepackage{epstopdf}
 \usepackage{xr-hyper}
 \usepackage{hyperref}
 \usepackage{todonotes}
 \usepackage[nodayofweek]{datetime}
 \usepackage{acronym}
+\usepackage{subfiles}
 
 % Commands
 \newdate{dateAtomShell}{15}{07}{2013}
@@ -47,15 +49,15 @@
         This paper will discuss the differences and similarities between Electron and Tauri, in terms like architecture, performance or security.
         Therefore a counter application is implemented for each framework to analyze and compare the development process.
     \end{abstract}
+
     \input{sections/introduction.tex}
     \input{sections/electron.tex}
-    \input{sections/tauri.tex}
-    \input{sections/implementation.tex}
-    \input{sections/summary.tex}
-    \input{sections/conclusion.tex}
+    %\input{sections/tauri.tex}
+    %\input{sections/implementation.tex}
+    %\input{sections/summary.tex}
+    %\input{sections/conclusion.tex}
     \input{sections/abbreviations.tex}
     \newpage
-
 
     \bibliography{main}
     \bibliographystyle{plain}
