@@ -13,14 +13,56 @@
 \usepackage{todonotes}
 \usepackage[nodayofweek]{datetime}
 \usepackage{acronym}
+
+
 \usepackage{subfiles}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+    keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, const},
+    keywordstyle=\color{blue}\bfseries,
+    ndkeywords={class, export, boolean, throw, implements, import, this, require},
+    ndkeywordstyle=\color{darkgray}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstset{
+    language=JavaScript,
+    backgroundcolor=\color{lightgray},
+    extendedchars=true,
+    basicstyle=\footnotesize\ttfamily,
+    showstringspaces=false,
+    showspaces=false,
+    numbers=left,
+    numberstyle=\footnotesize,
+    numbersep=9pt,
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    captionpos=b
+}
+
 
 % Commands
 \newdate{dateAtomShell}{15}{07}{2013}
 \newdate{dateRenameElectron}{23}{04}{2015}
+\newdate{dateTauriRelease}{31}{12}{2019}
 \date{\displaydate{date}}
 \pagenumbering{arabic}
 \newcommand{\secref}[1]{\autoref{#1}.~\nameref{#1}}
+\newcommand\figref{Figure~\ref}
 
 % Document
 \begin{document}
@@ -47,15 +89,15 @@
         that are built with Electron.
         Two years ago Tauri came up, whose developers claimed it to be faster, smaller and more focused on security than other alternative frameworks.
         This paper will discuss the differences and similarities between Electron and Tauri, in terms like architecture, performance or security.
-        Therefore a counter application is implemented for each framework to analyze and compare the development process.
+        Therefor a counter application is implemented for each framework to analyze and compare the development process.
     \end{abstract}
 
     \input{sections/introduction.tex}
     \input{sections/electron.tex}
-    %\input{sections/tauri.tex}
-    %\input{sections/implementation.tex}
-    %\input{sections/summary.tex}
-    %\input{sections/conclusion.tex}
+    \input{sections/tauri.tex}
+    \input{sections/implementation.tex}
+    \input{sections/summary.tex}
+    \input{sections/conclusion.tex}
     \input{sections/abbreviations.tex}
     \newpage
 
