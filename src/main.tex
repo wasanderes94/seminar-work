@@ -13,6 +13,9 @@
 \usepackage{todonotes}
 \usepackage[nodayofweek]{datetime}
 \usepackage{acronym}
+\usepackage{multirow}
+\usepackage{colortbl}
+
 
 
 \usepackage{subfiles}
@@ -63,6 +66,7 @@
 \pagenumbering{arabic}
 \newcommand{\secref}[1]{\autoref{#1}.~\nameref{#1}}
 \newcommand\figref{Figure~\ref}
+\newcommand{\shellcmd}[1]{\\\indent\indent\texttt{\footnotesize\# #1}\\}
 
 % Document
 \begin{document}

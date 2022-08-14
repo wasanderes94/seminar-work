@@ -56,11 +56,12 @@ or using commands which are bidirectional \ac{IPC} messages but can only be emit
 In contrast to Electron Tauri uses different patterns for isolating critical \ac{API} calls communication between the \texttt{webview} processes and the \texttt{core} process.
 They are called Brownfield and Isolation Pattern, whereas the default pattern, that can be configured inside the \texttt{tauri.conf.json} is the Brownfield pattern
 \begin{description}
-    %TODO Brownfield pattern
     \item[\textbf{Brownfield Pattern}:] \hfill \\
-    The Brownfield pattern can be seen as a design pattern to ensure interoperability between Tauri applications and existing frontend frameworks.
-    Using the Brownfield pattern Tauri does not categorize existing frameworks as legacy software but instead as current state of the art and tries to adapt and fit to existing frameworks, whereas this is
-    restricted by two types of
+    The Brownfield pattern can be seen as a design pattern to ensure interoperability between new implemented and existing software.
+    This pattern does not categorize software as legacy software but as current state of the art and software developed following this pattern tries to coexist and consider existing software as much as possible.
+    This requires a deep knowledge of the existing software and also can result in re-developing significant parts of the existing software when tried to enhance new features.
+    Tauri uses this pattern as standard and explains that it tries to be as compatible as possible.
+    But unfortunately Tauri does not explain in detail how they are implementing this pattern and how this helps to avoid malicious frontend calls to the Tauri core~\cite{tauri}.
     \item[\textbf{Isolation Pattern}:] \hfill \\
     The Isolation Pattern can be seen as an interposed instance between the \ac{IPC} handler and the processes.
     This instance is providing a sandbox, called Isolation application, which is trusted and secure JavaScript code embedded into an \texttt{<iframe>}.
@@ -69,14 +70,44 @@ They are called Brownfield and Isolation Pattern, whereas the default pattern, t
 
 
 \end{description}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/TauriCore}
+    \caption{Core Ecosystem from~\cite{tauri}}
+    \label{fig:tauri:core}
+\end{figure}
+As it can be seen in \figref{fig:tauri:core} Tauri splits its framework into two main components.
+The Core, containing several modules providing API access, utilities and the runtime.
+The Upstream containing the two self-developed Rust crates WRY and TAO which are providing libraries for creation and rendering of WebViews and their content.
 %Same as described for Tauri.Ref to introduction\ref{subsec:electron:arch}
 
 \subsection{Frontend}
 \label{subsec:tauri:frontend}
-WRY and TAO
-Webview implementierung
+As mentioned above, Tauris frontend relies on its own implementation of WebView instead of the entire Chromium content module for rendering \ac{HTML} content.
+This makes it much smaller than electron applications since their libraries WRY and TAO are using the exising web engines of the three major operating systems Linux, macOS and Windows instead of shipping an entire browser.
+\begin{description}
+    \item[\textbf{TAO}:] \hfill \\
+    TAO is a cross-platform library written in Rust and used for creating and managing application windows.
+    It was forked from the Rust crate \texttt{winit} since the developers wanted to enhance more desktop features than the original crate, like menu bars or a system tray.
+    This library ships with an entire event loop that can be emitted by windows like resizing or key interactions and is included at the second frontend library WRY.
+    \item[\textbf{WRY}:] \hfill \\
+    WRY is the main library at Tauri application and responsible for rendering the content of the os-specific web view.
+    It acts as an interface between the Tauri core with its low level webview drivers and the webview technology of the current operating system, providing an unique abstraction layer for rendering webview content.
+    Since it re-exports TAO and its event loop to guarantee access to os-specific web engines the appearance of the same application may differ on each operating system, depending on the underlying web engine.
+\end{description}
+%WRY and TAO
+%Webview implementierung
 \subsection{Backend}
 \label{subsec:tauri:backend}
+The backend or core of Tauri contains of several components, whereas some of them are summarized and called \texttt{tauri} to emphasize the main part of each Tauri application including runtime or the Tauri \ac{API}.
+The decision to write the entire backend in Rust was made because of the ownership feature in Rust which provides a set of rules for memory management and avoiding a garbage collector like Java or explicit memory allocation like C.
+It can be seen as an approach of trying to be more comfortable for the developer as an explicit allocation but also to force the developer to consider his/her memory handling to implement an efficient app.
+This set of rules is checked at compile time and if one of them is violated, the program will not compile.
+Beside that \texttt{tauri} components there are also additional components included by the core like system-level interactions for the upstream crate WRY .
+One of the major advantages of using Rust for the Tauri backend is as already mentioned its ownership rules, avoiding security issues but also the execution time of Rust code which was intended to obtain a similar performance as C++.
+Furthermore, Rust experienced a significant attention resulting in the adoption of it by big companies like Google or Facebook which assumes an increasing position.
+
 TAURI CORE
 ownership
 

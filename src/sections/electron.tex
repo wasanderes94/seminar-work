@@ -1,7 +1,7 @@
 \section{Electron}
 \label{sec:electron}
 Electron originally was released as Atom Shell by GitHub at \displaydate{dateAtomShell}~\cite{githubReleaseV010} and downloaded approx. $83\,000\,000$ times\footnote{According to \url{https://npm-stat.com/charts.html?package=electron&from=2013-07-13&to=2022-07-30}}
-The intention of the developers was ``to handle the Chromium/Node.js event loop integration and native APIs``~\cite{sawicki_2015} for the Atom Editor.
+The intention of the developers was ``to handle the Chromium/Node.js event loop integration and native\\APIs``~\cite{sawicki_2015} for the Atom Editor.
 On \displaydate{dateRenameElectron} it was renamed to Electron and announced that the developers want to provide a framework that allows to build desktop applications with the using web-technologies.
 Many day-to-day apps have been implemented using Electron like Discord, Twitch or even Microsoft Teams.
 This has lead to an increasing community which can be expressed numerically based on GitHub Statistics~\cite{GithubElectron}: \\ \\
@@ -10,7 +10,7 @@ This has lead to an increasing community which can be expressed numerically base
     Stars      & Forks     & Watching & Used by    & Contributors \\ \hline
     $130\,000$ & $13\,700$ & $2\,900$ & $244\,568$ & $1\,126$
 \end{tabular} \\ \\
-It combines both Chromium, an open-source browser and Node.js, an open-source JavaScript-runtime, to provide \\frontend-based features like rendering \ac{html} as well as os-based features like access to the filesystem inside one framework.
+It combines both Chromium, an open-source browser and Node.js, an open-source JavaScript-runtime, to provide \\frontend-based features like rendering \ac{HTML} as well as os-based features like access to the filesystem inside one framework.
 \subsection{Architecture}
 \label{subsec:electron:architecture}
 Electrons architecture fundamentally relies on Chromium, which is included in each Electron executable and has a lot common with it.
@@ -94,7 +94,7 @@ This is the reason, why Electron has combined the content module with the Node.j
 As backend for all electron-based applications the Node.js runtime is used.
 Node.js is a framework allowing developers to implement server-side applications using JavaScript, and as the chromium content module of~\ref{subsec:electron:frontend} it uses the V8 JavaScript engine to execute JavaScript code, but also provides more functionalities like the mentioned filesystem access
 or importing external modules.
-Furthermore, a package manager, called \ac{npm}, with ``more than one million packages``\footnote{\url{https://www.npmjs.com/}} is included.
+Furthermore, a package manager, called \ac{NPM}, with ``more than one million packages``\footnote{\url{https://www.npmjs.com/}} is included.
 This amount of packages is a result of an increasing popularity Node.js experienced since its release, because it can be used to implement a wide-range of applications.
 The reason for using Node.js runtime as a backend for all Electron applications is its privileges.
 At classical web-applications, the client-side is restricted through the OS to consume or request data from a third party API\@.
