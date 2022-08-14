@@ -29,6 +29,10 @@ Since the applications rely on multiprocess models and may also spawn children, 
 To archive this measurement following memory profiler command is used \shellcmd{mprof run --include-children --multiprocess --timeout 60 <executable>}
 It is important to notice that Tauri comes with a single executable file, whereas Electron ships with an installer which has to be executed first in order to get the actual executable application running.
 All Electron measurements will use this installed executable as foundation.
+
+Except build time for different operating systems which will use GitHub Actions, the measurements of execution time, memory consumption or binary size
+are made with Windows 11.
+
 %This subection section will take the findings of~\ref{sec:electron} into action and analyze the development and building process as well as the performance of the executable application.
 
 \subsection{Development}
