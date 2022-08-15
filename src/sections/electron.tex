@@ -26,7 +26,7 @@ Figure~\ref{fig:electron:model} shows such a multiprocess model structure, where
     \item[\textbf{Main}:] \hfill \\ This is the main entry point of the application and responsible for lifecycle management like starting or quitting the app.
     The \texttt{main} process uses so called \texttt{BrowserWindow} module to create and manage each \texttt{renderer} process which is loading web pages into it.
     Since just the \texttt{main} process is running inside a Node.js environment, it is the only part of the application that can import Node.js modules using \texttt{require}.
-    This forces each \texttt{renderer} process to interact with the \texttt{main} process if they want to consume system \ac{API}s for purposes like saving files or opening dialogs~\cite{ElectronDoc}\cite{electron-in-action}.
+    This forces each \texttt{renderer} process to interact with the \texttt{main} process if they want to consume system \ac{API}s for purposes like saving files or opening dialogs~\cite{ElectronDoc,electron-in-action}.
 
     \item[\textbf{Renderer}:] \hfill \\ A \texttt{renderer} process is responsible for rendering web content by loading web pages into it and presenting them to the user.
     Additionally, JavaScript code can be loaded and executed inside a process.
@@ -34,14 +34,21 @@ Figure~\ref{fig:electron:model} shows such a multiprocess model structure, where
     This leads to the fact, that \texttt{renderer} processes are isolated from each other following the Chromium principles of a multiprocess model and is reasoned by limited affection of
     faulty or malicious code on the entire app.
     The \texttt{renderer} processes are only able to communicate between each other indirectly via the \texttt{main} process or by using \texttt{MessagePorts}.
-    This is called \ac{IPC}~\cite{ElectronDoc}\cite{electron-in-action}.
+    This is called \ac{IPC}~\cite{ElectronDoc,electron-in-action}.
 \end{description}
 
 \subsubsection{Inter Process Communication}
 As mentioned above \texttt{main} and \texttt{renderer} processes are only able to communicate using \ac{IPC}.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/ipcElectron}
+    \caption[Bla]{IPC Communication of Electron~\cite[Fig. 6.5]{electron-nwjs}}
+    \label{fig:electron:ipc}
+\end{figure}
 Therefor Electron provides two modules, one for the \texttt{main} process, called \texttt{ipcMain} and one for \texttt{renderer} process, called \texttt{ipcRender}.
+\figref{fig:electron:ipc} points out the process of exchanging data between two or more processes.
 Both of them are Node.JS \texttt{eventEmitter} modules and capable of executing asynchronously and synchronously communication either uni- or bidirectional.
-It should be noticed, that this kind of \ac{IPC} communication is only for \texttt{renderer} to \texttt{main} and vice versa.
+It should be noticed, that this kind of \ac{IPC} communication is only for \texttt{renderer} to \texttt{main} and vice versa, which can be seen in \figref{fig:electron:ipc}.
 A communication between different \texttt{renderer} processes can be archived either indirectly using the \texttt{main} process or directly with \texttt{MessagePorts}.
 The advantage of using the direct variant is, that the workload of the \texttt{main} process can be reduced by using a new, hidden \texttt{renderer} process, which serves as a worker for the web content \texttt{renderer}.
 A \texttt{MessagePort} can be seen as a communication channel between two \texttt{renderer} processes.
@@ -73,7 +80,7 @@ A browser engine called \textbf{Blink} and a JavaScript engine called \textbf{V8
 \begin{description}
     \item[\textbf{Blink}:] \hfill \\ Blink serves as a browser engine inside the chrome content module and therefor is responsible for translating \ac{HTML} documents to the actual view, a user gets presented.
     Originally chromium used webkit as browser engine, which was developed and maintained by Apple, but fundamental disagreements between Apple and Google and Apple's restricted policy led to the fact,
-    that Google forked the webkit engine and use it as a grounding for their own engine~\cite{heiseBlink}\cite{blinkGoogle}.
+    that Google forked the webkit engine and use it as a grounding for their own engine~\cite{heiseBlink,blinkGoogle}.
     It relies on the same architecture as mentioned in~\ref{subsec:electron:architecture}, whereas blink is running inside a \texttt{renderer} process and uses one main thread
     and multiple worker threads that do the layout calculations.
     \item [\textbf{V8}:] \hfill \\ V8 is written in C++ and responsible for compiling and executing JavaScript code as well as memory management like allocation or garbage collecting.

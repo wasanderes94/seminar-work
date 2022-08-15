@@ -46,11 +46,17 @@ by the
 
 \subsubsection{Inter Process Communication}
 For communication between different processes Tauri also uses Inter Process Communication similar to Electron.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/TauriArchitecture}
+    \caption{IPC of Tauri~\cite[Figure 1-3]{tauri}}
+    \label{fig:tauri:ipc}
+\end{figure}
 In contrast, Tauri forces developers from the beginning to use the \ac{AMP} paradigm, whereas Electron released this feature at version 14 and only recommends it.
 The main advantage of \ac{AMP} is, that direct function access is denied and thus all communication has to go through the \texttt{core} process.
 Since it is able to observe the content of messages, it can decide which message will be forwarded and which will be blocked like malicious requests.
 Communication can be either unidirectional using events, which can be emitted by both \texttt{core} and \texttt{webview} processes to inform the event recipient but without any response,
-or using commands which are bidirectional \ac{IPC} messages but can only be emitted by the \texttt{webview} processes to invoke functions that require access to the operating system.
+or using commands which are bidirectional \ac{IPC} messages but can only be emitted by the \texttt{webview} processes to invoke functions that require access to the operating system like it shown in \figref{fig:tauri:ipc}.
 
 \subsubsection{Context Isolation}
 In contrast to Electron Tauri uses different patterns for isolating critical \ac{API} calls communication between the \texttt{webview} processes and the \texttt{core} process.
@@ -107,7 +113,4 @@ This set of rules is checked at compile time and if one of them is violated, the
 Beside that \texttt{tauri} components there are also additional components included by the core like system-level interactions for the upstream crate WRY .
 One of the major advantages of using Rust for the Tauri backend is as already mentioned its ownership rules, avoiding security issues but also the execution time of Rust code which was intended to obtain a similar performance as C++.
 Furthermore, Rust experienced a significant attention resulting in the adoption of it by big companies like Google or Facebook which assumes an increasing position.
-
-TAURI CORE
-ownership
 

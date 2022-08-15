@@ -40,7 +40,7 @@ The implemented application is based on Electron Version 19 the newest stable re
 
 \subsection{Development}
 \label{subsec:impl:dev}
-The development process is following the best practices section of each framework~\cite{ElectronDoc}\cite{tauri} to avoid deprecated or inefficient calls.
+The development process is following the best practices section of each framework~\cite{ElectronDoc,tauri} to avoid deprecated or inefficient calls.
 Implementation is done with usage of Visual Studio Code, a common, lightweight \ac{IDE} commonly used for web development and also recommended by both Electron and Tauri.
 
 \subsubsection{Prerequisites}
@@ -70,13 +70,12 @@ The third JavaScript file is the renderer script, that is responsible for adding
 
 \begin{lstlisting}[language=JavaScript,label={lst:rendererjs}, caption={Excerpt of render.js}]
 inc_btn.addEventListener('click', async () => {
-    const res = await window.electronApi.increment(document.getElementById('counter').innerText)
-    counter.innerText = res;
+    counter.innerText= await window.electronApi.increment(document.getElementById('counter').innerText)
 })
 \end{lstlisting}
 \begin{lstlisting}[language=JavaScript,label={lst:preloadjs}, caption={Excerpt of preload.js}]
 contextBridge.exposeInMainWorld('electronApi', {
-    increment: (param) => ipcRenderer.invoke('incrementChannel', param),
+    increment: (param) => ipcRenderer.invoke('incrementChannel', param)
 })
 \end{lstlisting}
 \begin{lstlisting}[language=JavaScript,label={lst:electronjs}, caption={Excerpt of electron.js}]
@@ -172,49 +171,61 @@ This owed due the fact of providing comparable results and may not occur at ever
 \label{table:buildingtime}
 \\ \\
 
-The binary size of the compiled executable amounts to $6\,924$ for the Tauri application respectively $145\,361$ for Electron
+The binary size of the compiled executable amounts to $6\,924$ for the Tauri application respectively $145\,361$ for Electron which is direct result of the architecture of both framework as mentioned in sections~\ref{subsec:electron:frontend} and~\ref{subsec:tauri:frontend}.
+Electron ships the executable with an entire web browser making whereas Tauri makes use of the system specific web engine and therefore is able to reduce its size by a factor of approximately 21.
+This may be an advantage or disadvantage depending on the developers or customers point of view, since the different web engines of each system may result in slightly different appearances of the application.
+
 \subsubsection{Memory Consumption}
 \label{subsubsec:perf:memory}
-
-Lore ipsum \\
+\figref{fig:electron:memory} and \figref{fig:tauri:memory} show the entire memory usage of the implemented applications including their child processes.
+Although the Electron application consumes more memory at startup, causing a peak of approximately 400 MiB at \figref{fig:electron:memory} it decreases its memory consumption up to approximately 290 MiB,
+whereas the Tauri Application is constantly at a consumption of roughly 320 to 330 MiB\@.
+Both figures also point out that Tauri has more processes involved into the application than Electron.
+Those graphics stay in contrast to the actual benchmarks provided by Tauri\footnote{\url{https://tauri.app/about/benchmarks/}} and thus only the benchmarks for Electron are made public it is not possible to explain the discrepancies between both frameworks objectively.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/ElectronMemCons.jpeg}
-    \caption[Bla]{Memory consumption of Electron executable obtained from memory profiler}
+    \includegraphics[width=0.5\textwidth]{images/ElectronMemCons}
+    \caption[]{Memory consumption of Electron executable obtained from memory profiler}
     \label{fig:electron:memory}
 \end{figure}
-\subsubsection{Execution Time}
-
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/TauriMemCons.jpeg}
-    \caption[Bla]{Memory consumption of Tauri executable obtained from memory profiler}
+    \includegraphics[width=0.5\textwidth]{images/TauriMemCons}
+    \caption[]{Memory consumption of Tauri executable obtained from memory profiler}
     \label{fig:tauri:memory}
 \end{figure}
+\\
 \subsubsection{Execution Time}
 \label{subsubsec:perf:execution}
-The measurements of \texttt{hyperfine} are shown below, whereas the mean values include their standard deviation
-\begin{tabular} {| c | c | c | c |}
 
+The measurements of \texttt{hyperfine} are shown below, whereas the mean values include their standard deviation based on ten measurements and caching describes the warmup option that is added to the second run of hyperfine.
+The high standard deviation of both table~\ref{table:exec:electron} and table~\ref{table:exec:tauri} at the \textbf{Without caching} row can be explained with the max values of the same row.
+The max value is more than 2 standard deviations away from the mean value meaning it is not a probable execution time, but it also shows the effect of filesystems caching.
+To obtain more reliable and undistorted measurements the warmup option of hyperfine showed the results of execution time after the application is cached.
+Both tables point out, that execution time of the Tauri application is faster than the Electron application at all measured values even if the mean values of Electron and Tauri only slightly differ.
+This is reasoned by Tauri's usage of Rust as backend which has a performance similar to C++~\cite{rustPerformance} and thus is more performant than JavaScript~\cite{C++Javascript}.
+
+\begin{tabular} {| c | c | c | c |}
     \hline
     \multicolumn{4}{|c|}{Execution time of Electron [ms]} \\ \hline
      \multicolumn{4}{|c|}{}\\ \hline
      & Mean   & Min & Max     \\ \hline
     Without caching & 17.3 $\pm$ 23.3 & 6.5 & 82.9  \\ \hline
     With caching & 18.0 $\pm$ 14.8 & 7.5 & 49.6 \\ \hline
-\end{tabular} \\ \\
-
+\end{tabular}
+\label{table:exec:electron}
+\\ \\
 
 \begin{tabular} {| c | c | c | c |}
-
     \hline
     \multicolumn{4}{|c|}{Execution time of Tauri [ms]} \\ \hline
     \multicolumn{4}{|c|}{}\\ \hline
     & Mean & Min & Max     \\ \hline
     Without caching & 17.1 $\pm$ 10.5 & 5.8 & 35.4  \\ \hline
     With caching & 15.1 $\pm$ 7.9 & 5.2 & 29.0 \\ \hline
-
-\end{tabular} \\ \\
+\end{tabular}
+\label{table:exec:tauri}
+\\ \\
 %At this subsubsection the actual performance of the example application is analyzed.
 %Memory consumption, known security issues, bugs, freezes etc.
 %This subsection section will take the findings of~\ref{sec:tauri} into action and analyze
