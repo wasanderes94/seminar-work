@@ -67,10 +67,11 @@ But also required handlers of the \texttt{ipcMain} module including the logic ar
 The second JavaScript is the preload script that contains the \texttt{contextBridge}  and \texttt{ipcRenderer} modules of Electron and exposes the API to the renderer process.
 This preload script is linked to the main process at the definition of the browser window, that is created by the \texttt{electron.js} file.
 The third JavaScript file is the renderer script, that is responsible for adding basic interaction processing that can occur.
-
+\newpage
 \begin{lstlisting}[language=JavaScript,label={lst:rendererjs}, caption={Excerpt of render.js}]
 inc_btn.addEventListener('click', async () => {
-    counter.innerText= await window.electronApi.increment(document.getElementById('counter').innerText)
+    counter.innerText =
+        await window.electronApi.increment(document.getElementById('counter').innerText)
 })
 \end{lstlisting}
 \begin{lstlisting}[language=JavaScript,label={lst:preloadjs}, caption={Excerpt of preload.js}]

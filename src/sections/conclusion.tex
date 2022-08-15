@@ -1,6 +1,52 @@
 \section{Conclusions}
-\label{sec:conclusions}
+\label{sec:conclusion}
 %At this section a conclusion is made based on the advantages/disadvantages of each framework
 %described in \ref{sec:conclusions}.
 %Are there different use-cases for each framework, are they concurrent to each other, etc.?
+Reminding the intention of the developers of Tauri mentioned at section~\ref{sec:tauri} and contrasting them to the measurements discussed in section~\ref{sec:implementation}
+it can be determined that some aspects like execution time or security of Tauri applications compared to Electron are accurate.
+Tauri applications have a more efficient performance in aspects of memory usage or execution time, due to the fact of using Rust as backend core.
+Nevertheless, some benchmarks provided by Tauri, especially in case of memory consumption could not be reproduced or investigated further since those are not provided public.
+But as mentioned in section~\ref{sec:summary} Tauri compared to Electron does a step towards the traditional web development, where system-specific requirements have to be considered and
+therefor at worst case an application for each operating system has to be implemented.
+Although this might need only small changes on the entire code base redundant code follows from this.
+Tauri has experienced much attention since its first release but at the current state is not suitable for big applications in production mode.
+This statement is based on different aspects.
+First, the documentation is difficult to understand resulting in paraphrases or one-sentenced explanations of entire architecture aspects like their design patterns, than actual explaining them.
+This results in uncertainties how the Tauri framework is doing tasks in detail.
+Especially the security section is rather describing possible threats that can occur during development than explaining their implemented solutions or how they affect existing code.
+Although documentations do not have to be objective, the Tauri documentation often compares parts of it against Electron applications even if some of them are referencing old and deprecated modules like ASAR files~\cite{tauri}. \\
+Second, the knowledge of Rust required to implement more complex applications that need access to the Rust core.
+Electron can be written by just using JavaScript and thus lowers the bounds for small web-development teams, since JavaScript is widely used at this branch.
+For those teams, implementing a Tauri application will result in learning a complete new programming language and in worst case if they do not have any knowledge in comparable languages like C++
+learning complete new programming patterns like \ac{OOP} principles or memory management.
+This consumes more resources during the development process and thus will lead to an increasing timespan between the initial development and a release of the application.
+Although Tauri has claimed to face this issue and announced to provide a backend that can be written using different languages, it is neither implemented nor scheduled yet.
+Several standard web techniques and functions like downloading or native menu items are not implemented too.
+This will cause developer teams add new functionalities to their applications since they are not provided by Electron yet.
+Third the community itself as well as the support of the developers, since Tauri and especially Rust suffers from a lack of functionalities and Features that are provided Node.js or Electron.
+Since Electron is used by many well-known companies like Microsoft with their Teams or Visual Studio applications or Discord and their same named application,
+this impacts the interests of improving the framework as well as the popularity for small development teams.
+
+Summarized Tauri improves some problems Electron has to deal with due to its architecture and underlying frontend and backend parts but is not suitable option for implementing applications
+that are aimed to be provided to millions of users or small development teams that do not have the resources that are required to implement Tauri applications.
+As it was pointed out by the authors of~\cite{explorationstudy} development teams using Electron have median number of 1 core developer.
+Using Tauri will result increasing complexity for those core teams although the background of the developers was not determined by the authors depending on the knowledge of system-related programming principles.
+Thus, the release time of applications or new features at least at the beginning of projects will shift further.
+This could affect developers that or even companies that want to obtain a balanced mix between release intervals and invested resources.
+It is a complex framework compared to other common cross-platform web-frameworks for implementing desktop applications but provides the possibility to develop efficient and small-sized applications compared to Electron, although
+they are currently limited by the Rust core.
+
+
 \subsubsection{Further work}
+Since this paper is based one the first stable release of Tauri, the topic has to be observed in the future, especially if the developers are improving their framework and documentation considering the requirements of the community.
+This could result in further performance comparisons between both frameworks or the productive operation of applications build with Tauri.
+It also needs further research or observation how the developers of Electron are dealing with the issues, the Tauri developers have mentioned in the future, including investigation of development that are using Electron if
+they want to migrate to Tauri or respectively as well as the reasons for that.
+Since Tauri is a framework with a new approach of using a system-related programming language of developing cross-platform desktop applications, further investigation in terms of how this affects establishing Rust especially as web-development language is necessary.
+Although the resource consumption of Electron is often criticized, there is no scientific publication how this influences the consumer choice of using those applications, since modern desktop computers do not suffer from a lack of memory in general
+or how this affects companies in their decision to migrate from Electron to Tauri.
+
+
+
+% macht speicher so einen großen einfluss
