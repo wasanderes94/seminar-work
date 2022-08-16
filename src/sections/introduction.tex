@@ -1,41 +1,39 @@
-\section{Introduction}
-\label{sec:introduction}
-%Short introduction why using web-frameworks for building desktop applications.
-%Advantages and Disadvantages compared to classic way.
-%Motivation of comparing Tauri and Electron
-Cross-platform frameworks like Electron, Tauri, Flutter or Proton are providing the possibility of using web-technologies like \ac{HTML}, \ac{CSS} and JavaScript or whole web-frameworks
-like Angular or React to develop or migrate classic desktop applications to web applications.
-The classic approach of implementing desktop applications needs the developer to consider different \ac{API} or environments of the major operating systems \ac{OS}
+\section{Introduction}\label{sec:introduction}
+Cross-platform web-frameworks like Electron, Tauri or Flutter provide the possibility of using standard web-technologies like \ac{HTML}, \ac{CSS} and JavaScript or entire web-frameworks
+like Angular to develop or migrate classic desktop applications to web applications.
+The traditional approach of implementing desktop applications needs the developer to consider different \ac{API} or environments of the major operating systems \ac{OS}
 Windows, Mac and Linux.
-In fact each application has to be implemented multiple times to adapt OS-specific requirements.
-In context of consumer applications this allows companies and product owners to develop new target groups, but also increases the pool of potential applicants,
-since those frameworks provide web developers to implement desktop applications without the knowledge of standard programming languages that are used for desktop applications
+In fact each application has to be implemented multiple times to adapt \ac{OS}-specific requirements and produces redundant code.
+In context of consumer applications the usage of such frameworks like Electron allows companies and product owners to develop new target groups, but also increases the pool of potential applicants,
+since they provide web developers technologies and features to implement desktop applications without the knowledge of standard programming languages that are used for desktop applications
 like C/C++ or Java.
-But also institutions or universities and their students benefit of it, because due to the fact of cross-platform development, applications can be used by many devices and decrease costs
-since they do not need particular hardware.
-%TODO ADD CONTENT
+But also institutions or universities and their students benefit of it, because due to the fact of cross-platform capabilities, applications can be used by many devices and decrease costs
+since they do not need particular hardware to be executed.
+
 \subsection{Background}\label{subsec:background}
-Over the past years frameworks for building desktop applications have get more and more attention.
-This is owed to the fact of fundamental advances at web technologies like TypeScript or Frontend Frameworks like Angular or React~\cite{pernice:icalepcs2019-wempr006},
+Over the past years web-frameworks for building desktop applications have experienced more and more attention, which can be expressed by the number of articles related to such topics or the temporal progression of Google Trends related to this topic.
+This is owed to the fact of fundamental advances at web technologies like TypeScript as an improvement of JavaScript or Frontend Frameworks like Angular or React~\cite{pernice:icalepcs2019-wempr006},
 which lead to a wider use of such technologies for various scenarios.
 A lot of every day applications used by computer scientists like Visual Studio Code or GitHub Desktop, but also applications with usage spread over industry sectors
-like Microsoft Teams, Skype or Discord and even Social Media applications like WhatsApp or Twitch are implemented with such frameworks.
+like Microsoft Teams, Skype or Discord and even Social Media applications like WhatsApp or Twitch are implemented using cross-platform web-frameworks.
 The trend of using those applications has even grow up since the outbreak of SARS-CoV-2 in early 2020~\cite{Gorbalenya2020} and the increased number of employees working from home
 as a result of lockdowns all over the world.
-This lead to an increasing number of cross-platform web-frameworks with different approaches in context of building, security or performance.
+This lead to an increasing number of cross-platform web-frameworks with different approaches in context of building, security or performance to provide a fast and simple way even for small development teams
+to use web-technologies for implementing desktop applications, since their cross-platform capabilities prevent the redundant implementation of the same application for different operating systems.
 
 %Research Questions%
 \subsection{Motivation}\label{subsec:motivation}
-As mentioned in Chapter~\ref{subsec:background} various cross-platform web-frameworks came up using different technologies or languages.
-One of the oldest and mostly used frameworks is Electron, which is backed up by several popular applications implemented with Electron like Visual Studio Code, Discord or Twitch.
-Therefore, Electron has become a standard in context of cross-platform development of desktop applications and almost every new framework invented is benchmarked against it like~\cite{flutter} or~\cite{electron-javafx}.
-Two years ago a new framework called Tauri was introduced which is designed to improve several aspects of Electron especially in case of performance, memory usage and security~\cite{tauri}.
-Since these statements are made by the developers this paper aims to provide an objective overview to the reader of both frameworks Electron and Tauri.
-Therefor fundamental architecture as well as the frontend and backend core of each framework is explained in detail at chapter~\ref{sec:electron} for Electron and at chapter~\ref{sec:tauri} for Tauri.
-This technological knowledge is applied by implementing a basic application which will be described in detail at chapter~\ref{sec:implementation} and analyzes different aspects.
-To obtain an objective statement of the advantages and disadvantages of each framework chapter~\ref{sec:summary} compares the results of previous sections
+As mentioned in Chapter~\ref{subsec:background} various cross-platform web-frameworks came up using different technologies or languages for their backend and frontend core.
+One of the oldest and most commonly used frameworks is Electron, which is backed up by several popular applications implemented with Electron like Visual Studio Code, Discord or Twitch.
+Therefore, Electron has become a standard in context of cross-platform development of desktop applications and almost every new framework invented is benchmarked against it like~\cite{flutter} or~\cite{electron-javafx} or~\cite{electron-nwjs}.
+Two years ago a new framework called Tauri was introduced, based on the discontent with Electrons high memory consumption or insecurity by its developers.
+It was designed to improve several aspects of Electron especially in case of performance, memory usage and security~\cite{tauri}.
+Since these statements are made by the developers and thus may be subjective, this paper aims to provide an objective overview to the reader of both frameworks Electron and Tauri.
+Therefore, fundamental architecture as well as the frontend and backend core of each framework is explained in detail at chapter~\ref{sec:electron} for Electron and at chapter~\ref{sec:tauri} for Tauri.
+This technological knowledge is applied by implementing a basic application which will be described in detail at chapter~\ref{sec:implementation} and analyzes different aspects of both.
+To obtain an objective statement of the advantages and disadvantages of each framework chapter~\ref{sec:summary} compares the results of previous chapters
 to isolate advantages and disadvantages to the reader.
-At the end of this paper the results of previous chapters are contrasted against the statement of the Tauri Developers in~\cite{tauri} and being discussed to obtain an objective
+At the end of this paper the results of previous chapters are contrasted against the statement of the Tauri developers in~\cite{tauri} and being discussed to obtain an objective
 comparison.
 
 \subsection{Related Work}\label{subsec:related-work}
@@ -43,15 +41,14 @@ An exploratory study of~\cite{explorationstudy} has worked out, that application
 The authors also empirically documented that those frameworks are mostly used by developer teams with a median size of 1, which is a direct result of the
 amount resources classical desktop development consumes.
 Nevertheless, they also discovered disadvantages like a high number of used libraries due to the fact of compensating lack of features provided by web-frameworks,
-but also a high ratio of platform-related issues to all issues of 20\%
+but also a high ratio of platform-related issues to all issues of 20\%.
 
 The increasing popularity of using web-technologies has been shown by~\cite{pernice:icalepcs2019-wempr006}.
 Since they identified their native Java Swing desktop application as a bottleneck, the authors decided to replace it with a technology stack providing long term sustainability.
-Therefor they used several web-technologies like AngularJS or Typescript to implement ``a web-based tool for configuring experiments on the National Ignition Factory``.
-But they also came in touch with typical problems of the JavaScript ecosystem like exit or replacement of widely used technologies bringing them to be forced to migrate
-AngularJS to Angular.
-It has to be mentioned that the authors emphasized the community support especially in case of migration by providing tools those cases.
-
+Therefore, they used several web-technologies like AngularJS or Typescript to implement ``a web-based tool for configuring experiments on the National Ignition Factory``~\cite{pernice:icalepcs2019-wempr006}.
+But they also came in touch with typical problems of the JavaScript ecosystem like exit or replacement of widely used technologies bringing them to be forced to migrate from
+AngularJS to its successor Angular.
+It has to be mentioned that the authors emphasized the community support especially in case of migration by providing tools for those cases.
 
 Electron as a standard benchmark for cross-platform web-frameworks is shown by~\cite{electron-javafx} or~\cite{flutter}.
 Both authors compared different web-frameworks against Electron.
