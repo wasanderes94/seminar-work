@@ -4,13 +4,15 @@ Electron originally was released as Atom Shell by GitHub at \displaydate{dateAto
 The intention of the developers was ``to handle the Chromium/Node.js event loop integration and native\\APIs``~\cite{sawicki_2015} for the Atom Editor.
 On \displaydate{dateRenameElectron} it was renamed to Electron and announced that the developers want to provide a framework that allows to build desktop applications only with web-technologies.
 Many day-to-day apps have been implemented using Electron like Discord, Twitch or even Microsoft Teams.
-This has lead to an increasing community which can be expressed numerically based on GitHub Statistics~\cite{GithubElectron}: \\ \\
-\begin{tabular} {| c | c | c | c | c |}
-    \label{tab:electron:statistics}
-    Stars      & Forks     & Watching & Used by    & Contributors \\ \hline
-    $130\,000$ & $13\,700$ & $2\,900$ & $244\,568$ & $1\,126$
-\end{tabular} \\ \\
-Electron combines both Chromium, an open-source browser and Node.js, an open-source JavaScript-runtime, to provide frontend-based features like rendering \ac{HTML} content as well as \ac{OS}-based features like access to the filesystem inside one framework.
+This has lead to an increasing community which can be expressed numerically based on GitHub Statistics~\cite{GithubElectron} and is shown at Table~\ref{tab:electron:statistics}: \\ \\
+\begin{table}[h]
+    \begin{tabular} {| c | c | c | c | c |}
+        Stars      & Forks     & Watching & Used by    & Contributors \\ \hline
+        $130\,000$ & $13\,700$ & $2\,900$ & $244\,568$ & $1\,126$
+    \end{tabular}
+    \caption{\label{tab:electron:statistics}GitHub Statistics of Electrons Repository}
+\end{table}\\ \\
+Electron combines both Chromium, an open-source browser and Node.js, an open-source JavaScript-runtime, to provide frontend-based features like rendering \ac{HTML} content as well as \ac{OS}-based features like filesystem access inside one framework.
 \subsection{Architecture}
 \label{subsec:electron:architecture}
 Electrons architecture fundamentally relies on Chromium, which is included in each Electron executable and has a lot common with it.
@@ -26,19 +28,22 @@ Figure~\ref{fig:electron:model} shows such a multiprocess model structure, where
     \item[\textbf{Main}:] \hfill \\ This is the main entry point of the application and responsible for lifecycle management like starting or quitting the app.
     The \texttt{main} process uses so called \texttt{BrowserWindow} module to create and manage each \texttt{renderer} process which is loading web pages into it.
     Since only the \texttt{main} process is running inside a Node.js environment, it is the sole part of the application that can import Node.js modules using \texttt{require}.
-    This forces each \texttt{renderer} process to interact with the \texttt{main} process if they want to consume system \ac{API}s for purposes like saving files or opening dialogs~\cite{ElectronDoc,electron-in-action}.
+    This forces each \texttt{renderer} process to communicate with the \texttt{main} process, if they want to consume system \ac{API}s for purposes like saving files or opening dialogs.
+    This communication is called \ac{IPC} and Electrons implementation of it will be discussed in detail at Chapter~\ref{subsubsec:electron:ipc}~\cite{ElectronDoc,electron-in-action}.
 
-    \item[\textbf{Renderer}:] \hfill \\ A \texttt{renderer} process is responsible for rendering web content by loading web pages into it and presenting them to the at the browser window.
-    Additionally, JavaScript code can be loaded and executed inside a process.
+    \newpage
+    \item[\textbf{Renderer}:] \hfill \\ A \texttt{renderer} process is responsible for rendering web content by loading web pages into it and presenting them to the user at the browser window.
+    Additionally, JavaScript code can be loaded and executed inside a \texttt{renderer} process.
     Each \texttt{renderer} process can be created or destroyed by the main process using the \texttt{BrowserWindow} module as mentioned before.
     This leads to the fact, that \texttt{renderer} processes are isolated from each other following the Chromium principles of a multiprocess model and is reasoned by limited affection of
     faulty or malicious code on the entire app.
     The \texttt{renderer} processes are only able to communicate between each other indirectly via the \texttt{main} process or by using \texttt{MessagePorts}.
-    This is called \ac{IPC}~\cite{ElectronDoc,electron-in-action}.
+    ~\cite{ElectronDoc,electron-in-action}.
 \end{description}
 
 \subsubsection{Inter Process Communication}
-As mentioned above \texttt{main} and \texttt{renderer} processes are only able to communicate using \ac{IPC}.
+\label{subsubsec:electron:ipc}
+As already mentioned the \texttt{main} and \texttt{renderer} processes are only able to communicate using \ac{IPC}.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.4\textwidth]{images/ipcElectron}
@@ -71,25 +76,25 @@ Inside this module an \ac{API} can be defined for providing access with \ac{IPC}
 
 \subsection{Frontend}
 \label{subsec:electron:frontend}
-The frontend part of an electron-based app consists of the chromium content module and provides all the core features that are required to render \ac{HTML} content
-or access Web-\ac{API}s.
-It is important to notice, that the content module is not equal to the chrome web-browser since the chrome web-browser wraps around the content module, but provides
+The frontend part of an Electron-based application consists of the Chromium content module and provides all the core features that are required to render \ac{HTML} content
+or access web-\ac{API}s.
+It is important to notice, that the content module is not equal to the Chrome web-browser since the web-browser wraps around the content module, but provides
 several features, the content module does not provide, like managing bookmarks, spellchecking, safe-browsing or securely saving passwords.
 The content module itself includes two parts.
 A browser engine called \textbf{Blink} and a JavaScript engine called \textbf{V8}~\cite{electron-in-action}.
 \begin{description}
-    \item[\textbf{Blink}:] \hfill \\ Blink serves as a browser engine inside the chrome content module and therefore is responsible for translating \ac{HTML} documents to the actual view, a user gets presented.
-    Originally chromium used webkit as browser engine, which was developed and maintained by Apple, but fundamental disagreements between Apple with its restricted policy and Google led to the fact,
-    that Google forked the webkit engine and uses it as a grounding for their own engine~\cite{heiseBlink,blinkGoogle}.
-    It relies on the same architecture as mentioned in~\ref{subsec:electron:architecture}, whereas blink is running inside a \texttt{renderer} process and uses one main thread
-    and multiple worker threads that do the layout calculations.
-    \item [\textbf{V8}:] \hfill \\ V8 is written in C++ and responsible for compiling and executing JavaScript code as well as memory management like allocation or garbage collecting.
+    \item[\textbf{Blink}:] \hfill \\ Blink serves as a browser engine inside the Chromium content module and therefore is responsible for translating \ac{HTML} documents to the actual view, a user gets presented.
+    Originally Chromium used Webkit as browser engine, which was developed and maintained by Apple, but fundamental disagreements between Apple with its restrictive policy and Google led to the fact,
+    that Google forked the Webkit engine and uses it as a grounding for their own engine~\cite{heiseBlink}.
+    It relies on the same architecture as mentioned at Chapter~\ref{subsec:electron:architecture}, whereas Blink is running inside a \texttt{renderer} process and uses one main thread
+    and multiple worker threads that do the layout calculations~\cite{blinkGoogle}.
+    \item [\textbf{V8}:] \hfill \\ V8 is written in C++ and responsible for compiling and executing JavaScript code as well as memory management like allocation or garbage collection.
     It can be seen as the executing background part of the content module, which transforms JavaScript code into C++ code, which in turn is translated into machine-readable byte-code,
     but it also provides the possibilities for developers to write own C++ applications that can expose their functions to JavaScript code to add new features or improve performance of execution~\cite{V8Doc}.
 
 \end{description}
 Summarized the content module provides all features to Electron that are necessary to develop a classical browser application.
-But since classical browser applications are restricted by the OS for example in case of file-system access, the use-cases are limited.
+But since classical browser applications are restricted by the \ac{OS} for example in case of filesystem access, the use-cases are limited.
 This is the reason, Electron has combined the content module with the Node.js runtime.
 %each view is rendered at a separate process, called \textbf{renderer}.
 %The reason for this is that faulty or malicious code is limited in its affection at the whole app.
@@ -97,15 +102,13 @@ This is the reason, Electron has combined the content module with the Node.js ru
 
 \subsubsection{Backend}
 \label{subsec:electron:backend}
-%TODO Add more information
-As backend for all electron-based applications the Node.js runtime is used.
-Node.js is a framework allowing developers to implement server-side applications using JavaScript, and as the chromium content module of~\ref{subsec:electron:frontend} it utilizes the V8 JavaScript engine to execute JavaScript code, but also provides more functionalities like the mentioned filesystem access
-or importing external modules.
-Furthermore, a package manager, called \ac{NPM}, with ``more than one million packages``\footnote{\url{https://www.npmjs.com/}} is included.
+As backend for all Electron-based applications the Node.js runtime is used.
+Node.js is a framework allowing developers to implement server-side applications using JavaScript, and as the Chromium content module of Chapter~\ref{subsec:electron:frontend} it utilizes V8 to execute JavaScript code, but also provides more functionalities like the mentioned filesystem access or the possibility of extern module import.
+Furthermore, a pack\-age manager, called \ac{NPM}, with ``more than one million packages``\footnote{\url{https://www.npmjs.com/}} is included.
 This amount of packages is a result of an increasing popularity Node.js experienced since its release, providing the capabilities to implement a wide-range of applications.
 The reason for utilizing Node.js runtime as a backend for all Electron applications is its privileges.
-At traditional web-applications, the client-side is restricted through the OS to consume or request data from a third party \ac{API}\@.
+At traditional web-applications, the client-side is restricted through the \ac{OS} to consume or request data from a third party \ac{API}\@.
 Because of that, the client has to request the server, which then is consuming the third party \ac{API}\@.
-Since Node.js has these privileges, the detour at the server-side falls away, guaranteeing electron applications these accesses at the client side~\cite{electron-in-action, electron-nwjs}.
+Since Node.js has these privileges, the detour at the server-side falls away, guaranteeing Electron applications these accesses at the client side~\cite{electron-in-action, electron-nwjs}.
 
 

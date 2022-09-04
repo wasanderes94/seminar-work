@@ -1,34 +1,34 @@
 \section{Summary}
 \label{sec:summary}
 %This section will take the knowledge of \ref{sec:electron} and \ref{sec:tauri} as well as the analysis of \ref{sec:implementation} to contrast them.
-To summarize the content of chapters~\ref{sec:electron} and~\ref{sec:tauri} as well as the measurement results of section~\ref{sec:implementation}
-both frameworks will be put in contrast to point out differences or similarities of each framework
+To summarize the content of Chapters~\ref{sec:electron} and~\ref{sec:tauri} as well as the measurement results of Chapter~\ref{sec:implementation}
+both frameworks will be put in contrast to point out differences or similarities of each.
 \subsection{Differences}\label{subsec:differences}
-As described in sections~\ref{sec:electron} and~\ref{sec:tauri} both frameworks rely on different technologies to build up their backend or to render the content of a web page.
+As described in Chapters~\ref{sec:electron} and~\ref{sec:tauri} both frameworks rely on different technologies to build up their backend or to render the content of a web page.
 Electron uses the Chromium web browser which is also shipped with the compiled executable resulting at higher binary size than Tauri.
 Tauri relies on the underlying operating systems web engine and outsources the rendering to that engine to save memory.
 But this causes developers to take care of the different operating systems and their specific requirements, whereas Electron solves this problem with the Chromium web browser.
-Although both frameworks provide cross-platform capabilities and support the major operating systems, only Electron provides full cross-platform capability meaning that developers are able to implement an application only once
-and run it on every operating systems without differing visual presentations.
-But it also has to be mentioned that the Electron executable ships necessary libraries as extern parts, whereas the Tauri build tools are packaging required dependencies and libraries into a single executable file.
+Although both frameworks provide cross-platform capabilities and support the three major \ac{OS}s, only Electron provides full cross-platform capability meaning that developers are able to implement an application only once
+and run it on each \ac{OS} without differing visual appearances of the application.
+But it also has to be mentioned that an Electron executable ships necessary libraries as extern parts, whereas the Tauri build tools are packaging required dependencies and libraries into a single executable file.
 This results at higher security since only a successful decompilation opens gateways to potential attackers, whereas Electron libraries could be compromised without decompilation and thus corrupt the executable.
 Another important subject that both frameworks differ is the used language.
-Electron applications can be written completely using JavaScript providing easy access to web-developer whereas development using Tauri requires knowledge with Rust, which has a high learning curve due to its complexity compared to JavaScript.
-Nevertheless, chapter~\ref{subsubsec:perf:execution} points out that the performance of Tauri applications is slightly better in case of base applications.
+Electron applications can be written completely using JavaScript providing easy access to web-developer, whereas development using Tauri requires knowledge with Rust, which has a high learning curve due to its complexity compared to JavaScript.
+Nevertheless, Chapter~\ref{subsubsec:perf:execution} points out that the performance of Tauri applications is slightly better in case of base applications.
 The reader has to notice, that all measurements were done using a simple counter application without any cpu or memory intense workloads and thus the better performance of the Rust backend compared to JavaScript might have a bigger impact on execution time.
 Another difference of both frameworks is at the subject of build time since Rust, in spite of improvements has a high compile complexity~\cite{rustCompileTime} although this is mostly avoided by caching and may not have such a big impact
 at day-to-day development.
 The Rust backend itself points out another difference between Tauri and Electron since it guarantees memory and thread safety and its model of ownership forces the developer to consider the efficiency of his/her application~\cite{klabnik2019rust}.
 At points of library support Rusts own package manager cargo is limited in terms of the amount of provided libraries compared to \ac{NPM}.
 This results in the fact that some functionalities are not provided by libraries and thus have to be implemented by the developers on their own.
-But also security aspects differ between both frameworks, although both are concentrating the main access to os-specific operations at the main or core process.
-Especially Tauris Isolation Pattern has to be pointed out, since it allows to execute suspicious frontend calls at an isolated, trusted sandbox environment before it is forwarded to the main core.
+But also security aspects differ between both frameworks, although both are concentrating the main access to \ac{OS}-specific operations at the main or core process.
+Especially Tauris' Isolation Pattern has to be highlighted, since it allows to execute suspicious frontend calls at an isolated, trusted sandbox environment before it is forwarded to the main core.
 This helps to avoid malicious software getting access to the core or obtaining privileges it should not have.
-Since Tauri applications are running serverless there is no possibility for potential attackers sniffing the network traffic between the frontend and the backend like it is done by Electron, but also each communication between Tauris backend and
-frontend is encrypted providing additional complexity to monitor the data that is exchanged~\cite{tauri}.
+Since Tauri applications are running serverless, in contrast to Electron, there is no possibility for potential attackers sniffing the network traffic between the frontend and the backend.
+But also each communication between Tauris' backend and frontend is encrypted providing additional complexity to monitor the data that is exchanged~\cite{tauri}.
 Another security aspect both frameworks differ are their dependencies.
-Since Electron uses~\ac{NPM} for its dependencies, it is up to the developer to update them and therefore is a possible open gate for potential attacks like the zero-day exploit of Log4J~\cite{bsi}.
-Although this could also happen to cargo the features of Rust itself prevent most of the possible attacking space that may occur at \ac{NPM} packages.
+Because Electron uses~\ac{NPM} for managing libraries and dependencies of the application, it is up to the developer to update them and therefore is a possible open gate for potential attacks like the zero-day exploit of Log4J~\cite{bsi}.
+Although this could also happen with cargo, the features of Rust itself prevent most of the possible attacking space that may occur at \ac{NPM} packages.
 
 
 %This subsection will work out the differences between the two frameworks
