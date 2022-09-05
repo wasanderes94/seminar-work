@@ -1,30 +1,29 @@
 \section{Introduction}\label{sec:introduction}
 Cross-platform web-frameworks like Electron, Tauri or Flutter provide the possibility of using standard web-technologies like \ac{HTML}, \ac{CSS} and JavaScript or entire web-frameworks
 like Angular to develop or migrate classic desktop applications to web applications.
-The traditional approach of implementing desktop applications needs the developer to consider different \ac{API} or environments of the major operating systems \ac{OS}
+The traditional approach of implementing desktop applications needs the developer to consider different \ac{API} or environments of the major  \ac{OS}s
 Windows, Mac and Linux.
 In fact, each application has to be implemented multiple times to adapt \ac{OS}-specific requirements and produces redundant code.
-In context of consumer applications, the usage of frameworks like Electron allows companies and product owners to develop new target groups, but also increases the pool of potential applicants,
-since they provide web developers technologies and features to implement desktop applications without the knowledge of standard programming languages that are used for those kind of applications
-like C/C++ or Java.
-But also institutions or universities and their students benefit from it, because, due to the fact of cross-platform capabilities, applications can be used by many devices and decrease costs
+In context of consumer applications, the usage of frameworks like Electron allows companies and product owners to develop new target groups.
+But it also increases the pool of potential applicants, since they provide web developers technologies and features to implement desktop applications without the knowledge of standard programming languages used for those kind of applications like C/C++ or Java.
+Furthermore, institutions or universities and their students benefit from it, because applications can be used by many devices, due to the fact of cross-platform capabilities and decrease costs
 since they do not need particular hardware to be executed.
 
 \subsection{Background}\label{subsec:background}
-Over the past years web-frameworks for building desktop applications have experienced more and more attention, which can be expressed by the number of articles related to such topics or the temporal progression of Google Trends related to this topic.
+In recent years web-frameworks for building desktop applications have experienced more and more attention, which can be expressed by the number of articles related to such topics or the temporal progression of Google Trends related to this topic.
 This is owed to the fact of fundamental advances at web technologies like TypeScript, as an improvement of JavaScript, or frontend frameworks like Angular or React~\cite{pernice:icalepcs2019-wempr006},
-which lead to a wider use of such technologies for various scenarios.
+which led to a wider use of such technologies for various scenarios.
 A lot of every day applications used by computer scientists like Visual Studio Code or GitHub Desktop, but also applications with usage spread over industry sectors
 like Microsoft Teams, Skype or Discord and even Social Media applications like WhatsApp or Twitch are implemented utilizing cross-platform web-frameworks.
 The trend of using those applications has even grown up since the outbreak of SARS-CoV-2 in early 2020~\cite{Gorbalenya2020} and the enlarged number of employees working from home
 as a result of lockdowns all over the world.
-This lead to an increasing number of cross-platform web-frameworks with different approaches in context of building, security or performance to provide a fast and simple way even for small development teams
+This led to an increasing number of cross-platform web-frameworks with different approaches in context of building, security or performance to provide a fast and simple way even for small development teams
 to use web-technologies for implementing desktop applications, since their cross-platform capabilities prevent redundant implementation of the same application for different \ac{OS}s.
 
 %Research Questions%
 \subsection{Motivation}\label{subsec:motivation}
 As mentioned in Chapter~\ref{subsec:background}, various cross-platform web-frameworks came up using different technologies or languages for their backend and frontend core.
-One of the oldest and most commonly used frameworks is Electron, which is backed up by several popular applications mentioned before, that are utilizing this framework.
+One of the oldest and most commonly used frameworks is Electron, which is backed up by several popular applications mentioned before utilizing this framework.
 Therefore, Electron has become a standard in context of cross-platform development of desktop applications and almost every new framework invented is benchmarked against it like Flutter~\cite{flutter}, JavaFX~\cite{electron-javafx} or Electron~\cite{electron-nwjs}.
 Two years ago a new framework called Tauri was introduced, based on the discontent with Electrons high memory consumption or insecurity by its developers.
 It was designed to improve several aspects of Electron, especially in case of performance, memory usage and security~\cite{tauri}.
@@ -37,11 +36,12 @@ At the end of this paper, the comparison results of Chapter ~\ref{sec:summary} a
 evaluation of both frameworks.
 
 \subsection{Related Work}\label{subsec:related-work}
-An exploratory study of the utilization of different frameworks for desktop apps has worked out, that applications developed with cross-platform web-frameworks are made for various kinds of usage~\cite{explorationstudy}.
+An exploratory study of the utilization of different frameworks for desktop apps has worked out that applications developed with cross-platform web-frameworks are made for various kinds of usage~\cite{explorationstudy}.
 The authors also empirically documented that those frameworks are mostly used by developer teams with a median size of 1, which is a direct result of the
 amount resources classical desktop development consumes.
-Nevertheless, they also discovered disadvantages using such web-frameworks, like a high number of used libraries due to the fact of compensating a lack of features provided by the frameworks,
-but also a high ratio of platform-related issues to all issues of 20\%.
+Nevertheless, they also discovered disadvantages using such web-frameworks, like a high number of used libraries.
+This is due to the fact of compensating a lack of features provided by the frameworks.
+But also a high ratio of platform-related issues to all issues of 20\%.
 
 The increasing popularity of web-technologies has been shown by~\cite{pernice:icalepcs2019-wempr006}.
 Since they identified their native Java Swing desktop application as a bottleneck, the authors decided to replace it with a technology stack providing long term sustainability.
